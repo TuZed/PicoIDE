@@ -7,38 +7,57 @@ import tkinter as tk
 
 class AppState:
     def __init__(self):
-        self.value=1
+        self.value=0
 
 class AppLogic:
     def __init__(self):
-        self.state=AppState()
+        self.state = AppState()
 
     def add(self):
-        self.state.value += 1
+        self.state.value+=1
 
     def sub(self):
-        self.state.value -= 1
+        self.state.value-=1
+
 
 class AppView:
-    def __init__(self, root, logic):
-        self.logic=AppLogic()
+    def __init__(self):
+        #
+        main_container = tk.Frame(root, bg="white")
+        main_container.pack(expand=True, fill="both", padx=5, pady=5)
+        #
+        #
+        centerText_container = tk.Frame(main_container, bg="gray")
+        centerText_container.pack(side="top", expand=True, fill="both", padx=5, pady=5)
 
-        self.label=tk.Label(root, text="0")
-        self.label.pack(pady=20)
+        centerBtn_container = tk.Frame(main_container, bg="gray")
+        centerBtn_container.pack(side="top", expand=True, fill="both", padx=5, pady=5)
+        #
+        #
+        text_container = tk.Frame(centerText_container, bg="black", padx=5, pady=5, width=400, height=200)
+        text_container.pack_propagate(False)
+        text_container.pack(expand=True, anchor="center")
 
-        self.btn_add = tk.Button(root, text="Bam de tang", command=self.on_add)
-        self.btn_add.pack(pady=20)
-        self.btn_sub = tk.Button(root, text="Bam de giam", command=self.on_sub)
-        self.btn_sub.pack(pady=20)
+        slogan = tk.Label(text_container, text="Số hiện tại là", font=("Arial", 14))
+        slogan.pack(expand=True, fill="both")
 
-    def on_add(self):
-        self.logic.add()
-        self.label.config(text=str(self.logic.state.value))
+        state_text = tk.Label(text_container, text="0", font=("Arial", 20))
+        state_text.pack(expand=True, fill="both")
+        #
+        #
+        left_container = tk.Frame(centerBtn_container, bg="Green")
+        left_container.pack(side="left", expand=True, fill="both", padx=5, pady=5)
 
-    def on_sub(self):
-        self.logic.sub()
-        self.label.config(text=str(self.logic.state.value))
+        left_btn =  tk.Button(left_container, text="ADD", width=40, height=5)
+        left_btn.pack(expand=True, anchor="center")
+        #
+        #
+        right_container = tk.Frame(centerBtn_container, bg="Red")
+        right_container.pack(side="left", expand=True, fill="both", padx=5, pady=5)
 
+        right_btn = tk.Button(right_container, text="SUB", width=40, height=5)
+        right_btn.pack(expand=True, anchor="center")
+        #
 
 root = tk.Tk() #tạo cửa sổ
 ####
@@ -47,9 +66,7 @@ root.title("First app")
 root.geometry("1280x720")
 root.resizable(True, True)
 
-
-logic = AppLogic()
-view = AppView(root, logic)
+AppView()
 
 ####
 root.mainloop()
