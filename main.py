@@ -1,4 +1,5 @@
 import tkinter as tk
+import customtkiner as ctk
 
 # App chia ra 3 phần
 # State  : Lưu các thao tác, giá trị biến, lưu trữ thông tin
@@ -22,42 +23,28 @@ class AppLogic:
 
 class AppView:
     def __init__(self):
-        #
-        main_container = tk.Frame(root, bg="white")
-        main_container.pack(expand=True, fill="both", padx=5, pady=5)
-        #
-        #
-        centerText_container = tk.Frame(main_container, bg="gray")
-        centerText_container.pack(side="top", expand=True, fill="both", padx=5, pady=5)
+        pass
 
-        centerBtn_container = tk.Frame(main_container, bg="gray")
-        centerBtn_container.pack(side="top", expand=True, fill="both", padx=5, pady=5)
-        #
-        #
-        text_container = tk.Frame(centerText_container, bg="black", padx=5, pady=5, width=400, height=200)
-        text_container.pack_propagate(False)
-        text_container.pack(expand=True, anchor="center")
+    def state_text_update(self, parent):
+        self.text_state = tk.Label(parent, text="0", font=("Arial", 20))
+        self.text_state.pack(expand=True, anchor="center", fill="both")
 
-        slogan = tk.Label(text_container, text="Số hiện tại là", font=("Arial", 14))
-        slogan.pack(expand=True, fill="both")
+    def btn_view(self, parent, logic, text):
+        self.parent = parent
+        self.logic = logic
 
-        state_text = tk.Label(text_container, text="0", font=("Arial", 20))
-        state_text.pack(expand=True, fill="both")
-        #
-        #
-        left_container = tk.Frame(centerBtn_container, bg="Green")
-        left_container.pack(side="left", expand=True, fill="both", padx=5, pady=5)
+        self.btn = tk.Button(parent, text = str(text),  width=40, height=5, command=lambda: self.on_click(text) )
+        self.btn.pack(expand=True, anchor="center")
 
-        left_btn =  tk.Button(left_container, text="ADD", width=40, height=5)
-        left_btn.pack(expand=True, anchor="center")
-        #
-        #
-        right_container = tk.Frame(centerBtn_container, bg="Red")
-        right_container.pack(side="left", expand=True, fill="both", padx=5, pady=5)
+    def on_click(self, text):
+        if text=="ADD":
+            self.logic.add()
+            self.text_state.config(text=str(self.logic.state.value))
+        else:
+            self.logic.sub()
+            self.text_state.config(text=str(self.logic.state.value))
 
-        right_btn = tk.Button(right_container, text="SUB", width=40, height=5)
-        right_btn.pack(expand=True, anchor="center")
-        #
+
 
 root = tk.Tk() #tạo cửa sổ
 ####
@@ -66,7 +53,45 @@ root.title("First app")
 root.geometry("1280x720")
 root.resizable(True, True)
 
-AppView()
+#
+main_AppView = AppView()
+logic_add_sub = AppLogic()
+
+main_container = tk.Frame(root, bg="white")
+main_container.pack(expand=True, fill="both", padx=5, pady=5)
+#
+#
+centerText_container = tk.Frame(main_container, bg="gray")
+centerText_container.pack(side="top", expand=True, fill="both", padx=5, pady=5)
+
+centerBtn_container = tk.Frame(main_container, bg="gray")
+centerBtn_container.pack(side="top", expand=True, fill="both", padx=5, pady=5)
+#
+#
+text_container = tk.Frame(centerText_container, bg="black", padx=5, pady=5, width=400, height=200)
+text_container.pack_propagate(False)
+text_container.pack(expand=True, anchor="center")
+
+slogan = tk.Label(text_container, text="Số hiện tại là", font=("Arial", 14))
+slogan.pack(expand=True, fill="both")
+
+state_text_display = main_AppView
+state_text_display.state_text_update(text_container)
+#
+#
+left_container = tk.Frame(centerBtn_container, bg="Green")
+left_container.pack(side="left", expand=True, fill="both", padx=5, pady=5)
+
+left_btn = main_AppView
+left_btn.btn_view(left_container, logic_add_sub, "ADD")
+#
+#
+right_container = tk.Frame(centerBtn_container, bg="Red")
+right_container.pack(side="left", expand=True, fill="both", padx=5, pady=5)
+
+right_btn = main_AppView
+right_btn.btn_view(right_container, logic_add_sub, "SUB")
+#
 
 ####
 root.mainloop()
