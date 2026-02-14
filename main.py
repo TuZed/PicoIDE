@@ -1,5 +1,5 @@
 import tkinter as tk
-import customtkiner as ctk
+import customtkinter as ctk
 
 # App chia ra 3 phần
 # State  : Lưu các thao tác, giá trị biến, lưu trữ thông tin
@@ -33,7 +33,16 @@ class AppView:
         self.parent = parent
         self.logic = logic
 
-        self.btn = tk.Button(parent, text = str(text),  width=40, height=5, command=lambda: self.on_click(text) )
+        self.btn = ctk.CTkButton(parent,
+            text = str(text),
+            width=300, height=100,
+            text_color="black",
+            hover_color="darkgray",
+            fg_color="gray",
+            border_color="black",
+            border_width=2,
+            corner_radius=20,
+            command=lambda: self.on_click(text) )
         self.btn.pack(expand=True, anchor="center")
 
     def on_click(self, text):
