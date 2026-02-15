@@ -1,25 +1,41 @@
-import subprocess
-import os
+import tkinter as tk
+import customtkinter as ctk
+
+# App chia ra 3 phần
+# State  : Lưu các thao tác, giá trị biến, lưu trữ thông tin
+# Logic  : Nơi xử các thuật toán và lấy giá trị gửi giá trị về state
+# UI/View: Nơi hiển thị đồ hoạ và đợi thao tác người dùng sử dụng Logic
+
+class AppState:
+    def __init__(self):
+        self.value=0
+
+class AppLogic:
+    def __init__(self):
+        self.state = AppState()
+
+    def add(self):
+        self.state.value+=1
+
+    def sub(self):
+        self.state.value-=1
+
 
 class AppView:
-    def create_button(self, parent, text, batch_file):
-        self.btn = ctk.CTkButton(
-            parent,
-            text=text,
-            command=lambda: self.run_batch(batch_file)
-        )
-        self.btn.pack()
+    def __init__(self, parent):
+        self.textbox = ctk.CTkTextbox(master=parent, width=400, height=150, corner_radius=10, fg_color="white", text_color="black", font=("Arial", 12), border_color="#4CAF50", border_width=2, wrap="word")
+        self.textbox.pack(expand=True, anchor="center")
 
-    def run_batch(self, batch_file):
-        try:
-            # Kiểm tra file tồn tại
-            if not os.path.exists(batch_file):
-                print(f"❌ Không tìm thấy {batch_file}")
-                return
 
-            # Chạy file batch
-            subprocess.Popen([batch_file], shell=True)
-            print(f"✅ Đang chạy {batch_file}")
 
-        except Exception as e:
-            print(f"❌ Lỗi: {e}")
+root = tk.Tk() #tạo cửa sổ
+####
+
+root.title("RP2040-Editor")
+root.geometry("1280x720")
+root.resizable(True, True)
+
+AppView(root)
+
+####
+root.mainloop()
