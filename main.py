@@ -26,7 +26,8 @@ class AppView:
         self.textbox = ctk.CTkTextbox(master=parent, width=400, height=150, corner_radius=10, fg_color="white", text_color="black", font=("Arial", 12), border_color="#4CAF50", border_width=2, wrap="word")
         self.textbox.pack(expand=True, anchor="center")
 
-
+    def btn_view:
+        pass
 
 root = tk.Tk() #tạo cửa sổ
 ####
