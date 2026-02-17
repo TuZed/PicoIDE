@@ -7,18 +7,10 @@ import customtkinter as ctk
 # UI/View: Nơi hiển thị đồ hoạ và đợi thao tác người dùng sử dụng Logic
 
 class AppState:
-    def __init__(self):
-        self.value=0
+    pass
 
 class AppLogic:
-    def __init__(self):
-        self.state = AppState()
-
-    def add(self):
-        self.state.value+=1
-
-    def sub(self):
-        self.state.value-=1
+    pass
 
 
 class AppView:
