@@ -23,7 +23,6 @@ root.title("RP2040-Editor")
 root.geometry("1280x720")
 root.resizable(True, True)
 
-AppView(root)
 
 ####
 root.mainloop()
