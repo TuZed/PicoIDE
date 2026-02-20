@@ -161,7 +161,7 @@ class MiniIDE(QMainWindow):
 
         if os.path.exists(script):
             self.log(f"Opening {script}")
-            os.startfile(os.path.abspath(script))  # 🔥 mở file như double click
+            os.startfile(os.path.abspath(script))  
         else:
             self.log(f"{script} not found!")
 
